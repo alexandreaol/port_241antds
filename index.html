@@ -1,1 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alunos - Turma 241ANTDS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: linear-gradient(135deg, #6a0dad, #ff8c00);
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            text-align: center;
+        }
+        .aluno-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            justify-content: center;
+        }
+        .aluno-card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+        .aluno-card:hover {
+            transform: scale(1.05);
+        }
+        .aluno-card img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
+        .btn, .match-btn {
+            margin-top: 10px;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            border: none;
+            color: white;
+            text-align: center;
+        }
+        .btn {
+            background-color: #6a0dad;
+        }
+        .btn:hover {
+            background-color: #ff8c00;
+        }
+        .match-btn {
+            background-color: #ff8c00;
+        }
+        .match-btn:hover {
+            background-color: #6a0dad;
+        }
+        /* Estilo do Modal */
+        #modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            justify-content: center;
+            align-items: center;
+        }
+        #modalContent {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: left;
+            width: 300px;
+        }
+        #fecharModal {
+            float: right;
+            cursor: pointer;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Encontre Seu Talento na Turma 241ANTDS</h1>
+        <p>Conecte-se com os melhores alunos e faça um match com seu futuro profissional</p>
+    </header>
+    
+    <div class="container">
+        <div class="aluno-grid">
+            <script>
+                const alunos = [
+                  { nome: "teste", link: "#", img: "https://via.placeholder.com/100", email: "maria@email.com", whatsapp: "https://wa.me/5511988888888" },
+                  { nome: "teste", link: "#", img: "https://via.placeholder.com/100", email: "maria@email.com", whatsapp: "https://wa.me/5511988888888" },
+                ];
+                
+                document.write(alunos.map(aluno => `
+                    <div class="aluno-card">
+                        <img src="${aluno.img}" alt="${aluno.nome}">
+                        <h3>${aluno.nome}</h3>
+                        <p>${aluno.descricao ? aluno.descricao : "Descrição breve do aluno."}</p>
+                        <button class="btn" onclick="window.open('${aluno.link}', '_blank')">Ver Portfólio</button>
+                        <button class="match-btn" onclick="matchAluno('${aluno.nome}', '${aluno.email}', '${aluno.whatsapp}')">Match</button>
+                    </div>
+                `).join(''));
+            </script>
+        </div>
+    </div>
+    
+    <!-- Modal -->
+    <div id="modal">
+        <div id="modalContent">
+            <span id="fecharModal">&times;</span>
+            <div id="infoAluno"></div>
+        </div>
+    </div>
 
+    <script>
+        function matchAluno(nome, email, whatsapp) {
+            const info = `
+                <p><strong>Nome:</strong> ${nome}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Whatsapp:</strong> <a href="${whatsapp}" target="_blank">Conversar no WhatsApp</a></p>
+            `;
+            document.getElementById('infoAluno').innerHTML = info;
+            document.getElementById('modal').style.display = 'flex';
+        }
+        
+        document.getElementById('fecharModal').onclick = function() {
+            document.getElementById('modal').style.display = 'none';
+        }
+        
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('modal')) {
+                document.getElementById('modal').style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
